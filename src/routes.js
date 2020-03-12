@@ -10,6 +10,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Login from './scenes/Login/index';
 import Home from './scenes/Home/index';
 import Subject from './scenes/Subject/index';
+import ClosedQuestions from './scenes/ClosedQuestions';
 
 const AuthStack = createStackNavigator();
 const General = createStackNavigator();
@@ -26,6 +27,13 @@ const SubjectStackScreen = () => (
       }}
       name="Subject"
       component={Subject}
+    />
+    <General.Screen
+      options={{
+        headerShown: false,
+      }}
+      name="ClosedQuestions"
+      component={ClosedQuestions}
     />
   </General.Navigator>
 );

@@ -65,7 +65,12 @@ export default ({ navigation }) => {
       <ListView
         data={subjects.subjects}
         renderItem={({ item }) => (
-          <ListItem key={item.id}>
+          <ListItem
+            onPress={() => {
+              navigation.navigate('ClosedQuestions');
+            }}
+            key={item.id}
+          >
             <IconSequence>
               <IconSequenceNumber>{item.sequencia}</IconSequenceNumber>
             </IconSequence>
