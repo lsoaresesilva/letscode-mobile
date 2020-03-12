@@ -22,7 +22,7 @@ import {
   MetainfoContainer,
 } from './styles';
 
-export default () => {
+export default ({ navigation }) => {
   const dispatch = useDispatch();
 
   const loading = useSelector(state => state.subject.loading);
@@ -44,7 +44,11 @@ export default () => {
     <Container>
       <HeaderContainer>
         <Header>
-          <HeaderItemAction>
+          <HeaderItemAction
+            onPress={() => {
+              navigation.navigate('Home');
+            }}
+          >
             <HeaderItem>
               <Icon name="chevron-left" size={20} color="#fff" />
             </HeaderItem>
