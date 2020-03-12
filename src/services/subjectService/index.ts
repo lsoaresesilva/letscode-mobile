@@ -19,7 +19,7 @@ export class SubjectService {
 
         const docsObjects = docs.map(doc => {
           return new Subject(doc.id, doc.data().nome, doc.data().sequencia, doc.data().questoesFechadas)
-        })
+        }).sort((a,b) => a.sequencia < b.sequencia ? -1 : 1)
 
          resolve(docsObjects);
 
