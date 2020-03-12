@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
-import { FlatList } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native';
+import { BaseButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   height: 100%;
@@ -24,16 +25,25 @@ export const Header = styled.View`
   z-index: 1;
 `;
 
+export const HeaderItemTitle = styled.Text`
+  font-size: 20px;
+  height: 100%;
+  flex: 1;
+  padding: 0px 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+`;
+
+export const HeaderItemAction = styled(TouchableOpacity)`
+  padding: 6px 8px;
+`;
+
 export const HeaderItem = styled.Text`
   color: #fff;
 `;
-export const ListViewOld = styled.View`
-  margin: 0px 25px;
-  height: 100%;
-  z-index: 10;
-  top: -70px;
-  left: 1px;
-`;
+
 export const ListView = styled(FlatList)`
   height: 100%;
   z-index: 10;
@@ -43,7 +53,7 @@ export const ListView = styled(FlatList)`
   margin-bottom: -70px;
 `;
 
-export const ListItem = styled.View.attrs({})`
+export const ListItem = styled(BaseButton)`
   background: #fff;
   width: 100%;
   height: 100px;

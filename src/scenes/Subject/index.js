@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { getAllSubject } from '../../store/modules/subject/actions';
 import {
   Container,
@@ -16,6 +17,8 @@ import {
   ContainerNumberQuestions,
   IconQtd,
   TextQtdQuestions,
+  HeaderItemAction,
+  HeaderItemTitle,
   MetainfoContainer,
 } from './styles';
 
@@ -41,9 +44,18 @@ export default () => {
     <Container>
       <HeaderContainer>
         <Header>
-          <HeaderItem>voltar</HeaderItem>
-          <HeaderItem style={{ fontSize: 20 }}>Assuntos</HeaderItem>
-          <HeaderItem>Filtrar</HeaderItem>
+          <HeaderItemAction>
+            <HeaderItem>
+              <Icon name="chevron-left" size={20} color="#fff" />
+            </HeaderItem>
+          </HeaderItemAction>
+
+          <HeaderItemTitle>assuntos</HeaderItemTitle>
+          <HeaderItemAction>
+            <HeaderItem>
+              <Icon name="filter" size={20} color="#fff" />
+            </HeaderItem>
+          </HeaderItemAction>
         </Header>
       </HeaderContainer>
       <ListView
