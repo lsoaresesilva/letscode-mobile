@@ -6,8 +6,7 @@ module.exports = {
     // 'plugin:react/recommended',
     'airbnb',
     'prettier',
-    'prettier/react',
-    'plugin:flowtype/recommended'
+    'prettier/react'
   ],
   globals: {
     Atomics: 'readonly',
@@ -23,8 +22,7 @@ module.exports = {
   },
   plugins: [
     'react',
-    'prettier',
-    'flowtype'
+    'prettier'
   ],
   rules: {
     'prettier/prettier': 'error',
@@ -43,9 +41,4 @@ module.exports = {
     'no-console': 'off',
     'no-new-wrappers': 'off'
   },
-  settings: {
-    'flowtype': {
-      'onlyFilesWithFlowAnnotation': true
-    }
-  }
 };
