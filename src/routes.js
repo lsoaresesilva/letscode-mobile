@@ -37,14 +37,14 @@ const DrawerHomeScreen = () => (
       options={{
         title: 'Home 2',
       }}
-      name="Subject"
+      name="Home2"
       component={Home}
     />
   </Tab.Navigator>
 );
 
 const PublicScreen = () => (
-  <PublicStack.Navigator initialRouteName="Profile">
+  <PublicStack.Navigator initialRouteName="Login">
     <PublicStack.Screen
       name="Login"
       component={Login}
