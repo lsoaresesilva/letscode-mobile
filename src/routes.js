@@ -24,7 +24,13 @@ const AuthStackScreen = () => (
 const DrawerHomeScreen = () => (
   <DrawerHomeStack.Navigator>
     <DrawerHomeStack.Screen name="Home" component={Home} />
-    <DrawerHomeStack.Screen name="Subject" component={Subject} />
+    <DrawerHomeStack.Screen
+      options={{
+        title: 'Assuntos',
+      }}
+      name="Subject"
+      component={Subject}
+    />
   </DrawerHomeStack.Navigator>
 );
 
