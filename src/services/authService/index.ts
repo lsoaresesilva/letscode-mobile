@@ -3,18 +3,12 @@
 import { sha256 } from 'js-sha256';
 import { useDispatch } from 'react-redux';
 import User from '../../model/User';
+import { getSnapshot } from './../../helpers';
 
 import { signOut as signOutAction } from '../../store/modules/auth/actions';
 
 import { firebaseFirestore } from '../api';
 
-function getSnapshot(snapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>): Promise<firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>> {
-  return new Promise((resolve, reject) => {
-    snapshot.forEach(doc => {
-      resolve(doc);
-    });
-  })
-}
 
 export class AuthService {
   signIn(user: User): any {
