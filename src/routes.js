@@ -2,36 +2,45 @@
 /* eslint-disable consistent-return */
 /* eslint-disable default-case */
 import * as React from 'react';
-
+import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Login from './scenes/Login/index';
 import Home from './scenes/Home/index';
 import Subject from './scenes/Subject/index';
 
 const AuthStack = createStackNavigator();
+const General = createStackNavigator();
 const PublicStack = createStackNavigator();
 const DrawerHomeStack = createDrawerNavigator();
 
-const AuthStackScreen = () => (
-  <AuthStack.Navigator>
-    <AuthStack.Screen name="Home" component={Home} />
-  </AuthStack.Navigator>
-);
+const Tab = createMaterialBottomTabNavigator();
 
-const DrawerHomeScreen = () => (
-  <DrawerHomeStack.Navigator>
-    <DrawerHomeStack.Screen name="Home" component={Home} />
-    <DrawerHomeStack.Screen
+const SubjectStackScreen = () => (
+  <General.Navigator>
+    <General.Screen
       options={{
-        title: 'Assuntos',
+        headerShown: false,
       }}
       name="Subject"
       component={Subject}
     />
-  </DrawerHomeStack.Navigator>
+  </General.Navigator>
+);
+
+const DrawerHomeScreen = () => (
+  <Tab.Navigator>
+    <Tab.Screen name="Home" component={Home} />
+    <Tab.Screen
+      options={{
+        title: 'Home 2',
+      }}
+      name="Subject"
+      component={Home}
+    />
+  </Tab.Navigator>
 );
 
 const PublicScreen = () => (
@@ -48,7 +57,17 @@ export default () => {
   return signedIn => {
     return (
       <NavigationContainer headerMode="screen">
-        {signedIn ? <DrawerHomeScreen /> : <PublicScreen />}
+        {signedIn ? (
+          <DrawerHomeStack.Navigator initialRouteName="Home">
+            <DrawerHomeStack.Screen name="Home" component={DrawerHomeScreen} />
+            <DrawerHomeStack.Screen
+              name="Assuntos"
+              component={SubjectStackScreen}
+            />
+          </DrawerHomeStack.Navigator>
+        ) : (
+          <PublicScreen />
+        )}
       </NavigationContainer>
     );
   };
