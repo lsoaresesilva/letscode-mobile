@@ -1,15 +1,7 @@
-/* eslint-disable class-methods-use-this */
-// @flow
-import { sha256 } from 'js-sha256';
-import { useDispatch } from 'react-redux';
-import User from '../../model/User';
 import { getSnapshot } from './../../helpers';
 
-import { signOut as signOutAction } from '../../store/modules/auth/actions';
-
 import { firebaseFirestore } from '../api';
-import Subject from '../../scenes/Subject';
-
+import Subject from '../../model/Subject';
 
 export class SubjectService {
   getAllSubjects(): any {
@@ -19,20 +11,22 @@ export class SubjectService {
        .collection('assuntos');
 
       userRef.get().then(snapshot => {
-        getSnapshot(snapshot).then(doc => {
 
-          const assuntos: Subject = new Subject();
-
-
+        const docs: any[] = [];
+        snapshot.forEach(doc => {
+          docs.push(doc)
         })
 
+        const docsObjects = docs.map(doc => {
+          return new Subject(doc.id, doc.data().nome, doc.data().sequencia, doc.data().questoesFechadas)
+        })
+
+         resolve(docsObjects);
+
       }).catch(err => {
+        console.tron.log('error')
         reject(new Error(err));
       })
     });
-  }
-
-  signOut() {
-    useDispatch(signOutAction());
   }
 }

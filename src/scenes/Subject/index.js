@@ -1,5 +1,8 @@
 /* eslint-disable no-unused-expressions */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Text, View } from 'react-native';
+import { getAllSubject } from '../../store/modules/subject/actions';
 import {
   Container,
   HeaderContainer,
@@ -17,6 +20,23 @@ import {
 } from './styles';
 
 export default () => {
+  const dispatch = useDispatch();
+
+  const loading = useSelector(state => state.subject.loading);
+  const subjects = useSelector(state => state.subject.subjects);
+
+  useEffect(() => {
+    dispatch(getAllSubject());
+  }, []);
+
+  if (loading) {
+    return (
+      <View>
+        <Text>carregando</Text>
+      </View>
+    );
+  }
+
   return (
     <Container>
       <HeaderContainer>
@@ -27,26 +47,16 @@ export default () => {
         </Header>
       </HeaderContainer>
       <ListView
-        data={[
-          { id: 0, seq: 1, nome: 'Lorem ipsum', qtdQuestoes: 41 },
-          { id: 1, seq: 2, nome: 'Lorem ipsum', qtdQuestoes: 1 },
-          { id: 2, seq: 3, nome: 'Lorem ipsum', qtdQuestoes: 5 },
-          { id: 3, seq: 4, nome: 'Lorem ipsum', qtdQuestoes: 121 },
-          { id: 4, seq: 5, nome: 'Lorem ipsum', qtdQuestoes: 1 },
-          { id: 5, seq: 6, nome: 'Lorem ipsum', qtdQuestoes: 7 },
-          { id: 6, seq: 7, nome: 'Lorem ipsum', qtdQuestoes: 12 },
-          { id: 7, seq: 8, nome: 'Lorem ipsum', qtdQuestoes: 45 },
-          { id: 8, seq: 9, nome: 'Lorem ipsum', qtdQuestoes: 44 },
-        ]}
+        data={subjects.subjects}
         renderItem={({ item }) => (
-          <ListItem key={`${item.id}`}>
+          <ListItem key={item.id}>
             <IconSequence>
-              <IconSequenceNumber>{item.seq}</IconSequenceNumber>
+              <IconSequenceNumber>{item.sequencia}</IconSequenceNumber>
             </IconSequence>
             <MetainfoContainer>
               <MetainfoTitle>{item.nome}</MetainfoTitle>
               <ContainerNumberQuestions>
-                <IconQtd>{item.qtdQuestoes}</IconQtd>
+                <IconQtd>{item.questoesFechadas.length}</IconQtd>
                 <TextQtdQuestions>Questões</TextQtdQuestions>
               </ContainerNumberQuestions>
             </MetainfoContainer>
