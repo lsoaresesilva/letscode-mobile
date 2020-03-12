@@ -2,24 +2,57 @@
 /* eslint-disable consistent-return */
 /* eslint-disable default-case */
 import * as React from 'react';
-
+import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Login from './scenes/Login/index';
 import Home from './scenes/Home/index';
+import Subject from './scenes/Subject/index';
+import ClosedQuestions from './scenes/ClosedQuestions';
 
 const AuthStack = createStackNavigator();
+const General = createStackNavigator();
 const PublicStack = createStackNavigator();
+const DrawerHomeStack = createDrawerNavigator();
 
-const AuthStackScreen = () => (
-  <AuthStack.Navigator>
-    <AuthStack.Screen name="Home" component={Home} />
-  </AuthStack.Navigator>
+const Tab = createMaterialBottomTabNavigator();
+
+const SubjectStackScreen = () => (
+  <General.Navigator>
+    <General.Screen
+      options={{
+        headerShown: false,
+      }}
+      name="Subject"
+      component={Subject}
+    />
+    <General.Screen
+      options={{
+        headerShown: false,
+      }}
+      name="ClosedQuestions"
+      component={ClosedQuestions}
+    />
+  </General.Navigator>
+);
+
+const DrawerHomeScreen = () => (
+  <Tab.Navigator>
+    <Tab.Screen name="Home" component={Home} />
+    <Tab.Screen
+      options={{
+        title: 'Home 2',
+      }}
+      name="Home2"
+      component={Home}
+    />
+  </Tab.Navigator>
 );
 
 const PublicScreen = () => (
-  <PublicStack.Navigator initialRouteName="Profile">
+  <PublicStack.Navigator initialRouteName="Login">
     <PublicStack.Screen
       name="Login"
       component={Login}
@@ -32,7 +65,17 @@ export default () => {
   return signedIn => {
     return (
       <NavigationContainer headerMode="screen">
-        {signedIn ? <AuthStackScreen /> : <PublicScreen />}
+        {signedIn ? (
+          <DrawerHomeStack.Navigator initialRouteName="Home">
+            <DrawerHomeStack.Screen name="Home" component={DrawerHomeScreen} />
+            <DrawerHomeStack.Screen
+              name="Assuntos"
+              component={SubjectStackScreen}
+            />
+          </DrawerHomeStack.Navigator>
+        ) : (
+          <PublicScreen />
+        )}
       </NavigationContainer>
     );
   };

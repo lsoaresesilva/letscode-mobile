@@ -26,7 +26,6 @@ export function signFailure() {
 }
 
 export function signOut() {
-  console.tron.log('action');
   return {
     type: '@auth/SIGN_OUT',
   };

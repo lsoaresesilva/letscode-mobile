@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { signInRequest } from '../../store/modules/auth/actions';
+import { signInRequest, signOut } from '../../store/modules/auth/actions';
 import { SCALE_8 } from '../../styles/spacing';
 
 import {

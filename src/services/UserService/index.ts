@@ -5,5 +5,5 @@ import User from '../../model/User';
 import { firebaseFirestore } from '../api';
 
 export class UserService {
-  getAll(): Promise<User[]> {}
+  getAll(): any {}
 }
