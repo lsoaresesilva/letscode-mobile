@@ -2,7 +2,7 @@
 // @flow
 import { sha256 } from 'js-sha256';
 import { useDispatch } from 'react-redux';
-import User from '../../model/User';
+import Usuario from '../../model/Usuario';
 import { getSnapshot } from './../../helpers';
 
 import { signOut as signOutAction } from '../../store/modules/auth/actions';
@@ -11,7 +11,7 @@ import { firebaseFirestore } from '../api';
 
 
 export class AuthService {
-  signIn(user: User): any {
+  signIn(user: Usuario): any {
     return new Promise((resolve, reject) => {
 
      const userRef = firebaseFirestore
@@ -20,12 +20,12 @@ export class AuthService {
 
       userRef.get().then(snapshot => {
         getSnapshot(snapshot).then(doc => {
-          const filteredUser: User = new User(doc.id,doc.data().nome,doc.data().email, doc.data().senha);
+          const filteredUser: Usuario = new Usuario(doc.id,doc.data().nome,doc.data().email, doc.data().senha);
 
           if (filteredUser) {
 
-            if (filteredUser.password === sha256(user.password)) {
-              filteredUser.password = sha256(filteredUser.password);
+            if (filteredUser.senha === sha256(user.senha)) {
+              filteredUser.senha = sha256(filteredUser.senha);
               resolve(filteredUser);
             } else {
               reject(new Error('Password does not match'));
