@@ -1,4 +1,4 @@
-export default class Subject  {
+export default class Assunto  {
 
   constructor(id: string, nome: string, sequencia: number, questoesFechadas: any) {
     this.id = id;
