@@ -67,7 +67,9 @@ export default ({ navigation }) => {
         renderItem={({ item }) => (
           <ListItem
             onPress={() => {
-              navigation.navigate('ClosedQuestions');
+              navigation.navigate('ClosedQuestions', {
+                idSubject: item.id,
+              });
             }}
             key={item.id}
           >

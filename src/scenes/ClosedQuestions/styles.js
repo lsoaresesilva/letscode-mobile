@@ -56,7 +56,6 @@ export const ListView = styled(FlatList)`
 export const ListItem = styled(BaseButton)`
   background: #fff;
   width: 100%;
-  height: 100px;
   border-radius: 20px;
   margin-bottom: 20px;
   padding: 20px 0px;
@@ -66,6 +65,7 @@ export const ListItem = styled(BaseButton)`
 export const IconSequence = styled.View`
   width: 50px;
   height: 50px;
+  margin-left: 10px;
   background: #ff455c;
   border-radius: 25px;
   align-items: center;
@@ -81,7 +81,6 @@ export const IconSequenceNumber = styled.Text`
 export const MetainfoContainer = styled.View`
   flex: 1;
   margin: 0px 15px;
-  height: 100%;
 `;
 
 export const MetainfoTitle = styled.Text`
@@ -95,21 +94,6 @@ export const ContainerNumberQuestions = styled.View`
   height: 20px;
   margin-top: 5px;
   flex-direction: row;
-`;
-
-export const IconQtd = styled.Text`
-  width: 30px;
-  height: 20px;
-  background: #4893ff;
-  border-radius: 5px;
-  margin-right: 6px;
-  text-align: center;
-  color: #fff;
-  display: flex;
-  padding: 2px 0px;
-  justify-content: center;
-  align-items: center;
-  font-size: 10px;
 `;
 
 export const TextQtdQuestions = styled.Text`

@@ -22,11 +22,20 @@ import {
   MetainfoContainer,
 } from './styles';
 
-export default ({ navigation }) => {
+export default ({ route, navigation }) => {
   const dispatch = useDispatch();
+  const { idSubject } = route.params;
 
   const loading = useSelector(state => state.subject.loading);
-  const subjects = useSelector(state => state.subject.subjects);
+  const alternatives = useSelector(
+    state =>
+      state.subject.subjects.subjects.filter(item => item.id === idSubject)[0]
+        .questoesFechadas
+  );
+  const subjects = useSelector(
+    state =>
+      state.subject.subjects.subjects.filter(item => item.id === idSubject)[0]
+  );
 
   useEffect(() => {
     dispatch(getAllSubject());
@@ -39,6 +48,8 @@ export default ({ navigation }) => {
       </View>
     );
   }
+
+  console.tron.log(subjects);
 
   return (
     <Container>
@@ -54,7 +65,7 @@ export default ({ navigation }) => {
             </HeaderItem>
           </HeaderItemAction>
 
-          <HeaderItemTitle>assuntos</HeaderItemTitle>
+          <HeaderItemTitle>{subjects.nome}</HeaderItemTitle>
           <HeaderItemAction>
             <HeaderItem>
               <Icon name="filter" size={20} color="#fff" />
@@ -63,21 +74,33 @@ export default ({ navigation }) => {
         </Header>
       </HeaderContainer>
       <ListView
-        data={subjects.subjects}
+        data={alternatives}
         renderItem={({ item }) => (
           <ListItem
             onPress={() => {
-              navigation.navigate('ClosedQuestions');
+              navigation.navigate('Alternatives', {
+                idAlternative: item.id,
+              });
             }}
             key={item.id}
           >
             <IconSequence>
-              <IconSequenceNumber>{item.sequencia}</IconSequenceNumber>
+              <IconSequenceNumber>
+                <Icon
+                  name={item.respostaQuestao ? 'check' : 'times'}
+                  size={30}
+                  color="#fff"
+                />
+              </IconSequenceNumber>
             </IconSequence>
             <MetainfoContainer>
-              <MetainfoTitle>{item.nome}</MetainfoTitle>
+              <MetainfoTitle>{item.nomeCurto}</MetainfoTitle>
               <ContainerNumberQuestions>
-                <TextQtdQuestions>Questões</TextQtdQuestions>
+                <TextQtdQuestions>
+                  {item.respostaQuestao
+                    ? 'Questão respondida'
+                    : 'Questão não respondida'}
+                </TextQtdQuestions>
               </ContainerNumberQuestions>
             </MetainfoContainer>
           </ListItem>
