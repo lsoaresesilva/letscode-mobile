@@ -3,17 +3,17 @@ export default class QuestaoFechada {
     id: string,
     nomeCurto: string,
     enunciado: string,
-    dificuldade: string,
+    dificuldade: number,
     alternativas: any,
-    respostaQuesta: any,
-    sequencia: any
+    respostaQuestao: string,
+    sequencia: number
   ) {
     this.id = id;
     this.nomeCurto = nomeCurto;
     this.enunciado = enunciado;
     this.dificuldade = dificuldade;
     this.alternativas = alternativas;
-    this.respostaQuesta = respostaQuesta;
+    this.respostaQuestao = respostaQuestao;
     this.sequencia = sequencia;
   }
 
@@ -23,11 +23,11 @@ export default class QuestaoFechada {
 
   enunciado: string;
 
-  dificuldade: string;
+  dificuldade: number;
 
   alternativas: any;
 
-  respostaQuesta: any;
+  respostaQuestao: string;
 
-  sequencia: any;
+  sequencia: number;
 }
