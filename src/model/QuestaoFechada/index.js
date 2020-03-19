@@ -1,10 +1,12 @@
+import Alternativa from '../Alternativa';
+
 export default class QuestaoFechada {
   constructor(
     id: string,
     nomeCurto: string,
     enunciado: string,
     dificuldade: number,
-    alternativas: any,
+    alternativas: Alternativa[],
     respostaQuestao: string,
     sequencia: number
   ) {
@@ -25,7 +27,7 @@ export default class QuestaoFechada {
 
   dificuldade: number;
 
-  alternativas: any;
+  alternativas: Alternativa[];
 
   respostaQuestao: string;
 
