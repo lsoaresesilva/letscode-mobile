@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { FlatList, ScrollView, TouchableOpacity } from 'react-native';
 import { BaseButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
@@ -45,6 +45,14 @@ export const HeaderItem = styled.Text`
 `;
 
 export const ListView = styled(FlatList)`
+  height: 100%;
+  z-index: 10;
+  top: -70px;
+  left: 1px;
+  padding: 0px 25px;
+  margin-bottom: -70px;
+`;
+export const ScrollListView = styled(ScrollView)`
   height: 100%;
   z-index: 10;
   top: -70px;

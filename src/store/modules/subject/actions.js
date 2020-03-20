@@ -1,5 +1,4 @@
 export function getAllSubject() {
-  console.tron.log('getAllSubject action');
   return {
     type: '@subject/GET_ALL_SUBJECT',
   };

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Subject deve disparar a action getAllSubject 1`] = `
+Array [
+  Object {
+    "type": "@subject/GET_ALL_SUBJECT",
+  },
+]
+`;
