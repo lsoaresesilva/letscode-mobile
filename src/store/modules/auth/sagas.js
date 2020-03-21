@@ -2,7 +2,7 @@
 /* eslint-disable import/extensions */
 import { Alert } from 'react-native';
 import { takeLatest, call, put, all } from 'redux-saga/effects';
-import User from '../../../model/User';
+import Usuario from '../../../model/Usuario';
 import { AuthService } from '../../../services/authService';
 
 import { signInSuccess, signFailure } from './actions';
@@ -10,7 +10,7 @@ import { signInSuccess, signFailure } from './actions';
 export function* signIn({ payload }) {
   try {
     const { email, password } = payload;
-    const user = new User('', '', email, password);
+    const user = new Usuario('', '', email, password);
     const auth = new AuthService();
     const userSigned = yield call(auth.signIn, user);
     yield put(signInSuccess(userSigned));

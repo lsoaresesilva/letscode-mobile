@@ -1,7 +1,7 @@
 import { getSnapshot } from './../../helpers';
 
 import { firebaseFirestore } from '../api';
-import Subject from '../../model/Subject';
+import Assunto from '../../model/Assunto';
 
 export class SubjectService {
   getAllSubjects(): any {
@@ -18,7 +18,7 @@ export class SubjectService {
         })
 
         const docsObjects = docs.map(doc => {
-          return new Subject(doc.id, doc.data().nome, doc.data().sequencia, doc.data().questoesFechadas)
+          return new Assunto(doc.id, doc.data().nome, doc.data().sequencia, doc.data().questoesFechadas)
         }).sort((a,b) => a.sequencia < b.sequencia ? -1 : 1)
 
          resolve(docsObjects);
