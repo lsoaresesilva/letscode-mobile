@@ -1,6 +1,8 @@
+import QuestaoFechada from "../QuestaoFechada";
+
 export default class Assunto  {
 
-  constructor(id: string, nome: string, sequencia: number, questoesFechadas: any) {
+  constructor(id: string, nome: string, sequencia: number, questoesFechadas: QuestaoFechada[]) {
     this.id = id;
     this.nome = nome;
     this.sequencia = sequencia;
@@ -11,5 +13,5 @@ export default class Assunto  {
   id: string;
   nome: string;
   sequencia: number;
-  questoesFechadas: any;
+  questoesFechadas: QuestaoFechada[];
 }
