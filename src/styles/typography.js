@@ -36,6 +36,17 @@ export const LINE_HEIGHT_24 = scaleFont(24);
 export const LINE_HEIGHT_20 = scaleFont(20);
 export const LINE_HEIGHT_16 = scaleFont(16);
 
+export const LINE_HEIGHT_H1 = scaleFont(105.6);
+export const LINE_HEIGHT_H2 = scaleFont(66);
+export const LINE_HEIGHT_H3 = scaleFont(52.8);
+export const LINE_HEIGHT_H4 = scaleFont(40.8);
+export const LINE_HEIGHT_H5 = scaleFont(28.8);
+export const LINE_HEIGHT_H6 = scaleFont(24);
+export const LINE_HEIGHT_BODY_1 = scaleFont(24);
+export const LINE_HEIGHT_BODY_2 = scaleFont(21);
+export const LINE_HEIGHT_SUBTITLE_1 = scaleFont(20.8);
+export const LINE_HEIGHT_SUBTITLE_2 = scaleFont(18.2);
+
 // FONT STYLE
 export const FONT_REGULAR = {
   fontFamily: FONT_FAMILY_REGULAR,
