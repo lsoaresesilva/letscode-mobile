@@ -2,6 +2,8 @@ import { getSnapshot } from './../../helpers';
 
 import { firebaseFirestore } from '../api';
 import Assunto from '../../model/Assunto';
+import QuestaoFechada from '../../model/QuestaoFechada';
+import Alternativa from '../../model/Alternativa';
 
 export class SubjectService {
   getAllSubjects(): any {
@@ -17,14 +19,28 @@ export class SubjectService {
           docs.push(doc)
         })
 
-        const docsObjects = docs.map(doc => {
-          return new Assunto(doc.id, doc.data().nome, doc.data().sequencia, doc.data().questoesFechadas)
-        }).sort((a,b) => a.sequencia < b.sequencia ? -1 : 1)
+        const subjects = docs.map(doc => {
 
-         resolve(docsObjects);
+          // mapeando as questões para agrupa-las como objeto QuestaoFechada
+          const questions = doc.data().questoesFechadas.map((question) => {
+
+            // mapeando as alternativas para agrupa-las como objeto Alternativa
+            const alternatives = question.alternativas.map((alternative) => {
+              return new Alternativa(alternative.id, alternative.isVerdadeira, alternative.texto);
+            })
+
+            return new QuestaoFechada(question.id,
+              question.nomeCurto, question.enunciado, question.dificuldade,
+              alternatives, question.respostaQuestao, question.sequencia)
+          })
+
+          return new Assunto(doc.id, doc.data().nome, doc.data().sequencia, questions)
+        })
+        .sort((a,b) => a.sequencia < b.sequencia ? -1 : 1)
+
+         resolve(subjects);
 
       }).catch(err => {
-        console.tron.log('error')
         reject(new Error(err));
       })
     });

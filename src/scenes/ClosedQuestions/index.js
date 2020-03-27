@@ -80,6 +80,7 @@ export default ({ route, navigation }) => {
             onPress={() => {
               navigation.navigate('Alternatives', {
                 idAlternative: item.id,
+                idSubject,
               });
             }}
             key={item.id}

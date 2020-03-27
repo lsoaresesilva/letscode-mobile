@@ -11,6 +11,8 @@ import Login from './scenes/Login/index';
 import Home from './scenes/Home/index';
 import Subject from './scenes/Subject/index';
 import ClosedQuestions from './scenes/ClosedQuestions';
+import Alternatives from './scenes/Alternatives';
+import { PRIMARY, WHITE } from './styles/colors';
 
 const AuthStack = createStackNavigator();
 const General = createStackNavigator();
@@ -20,7 +22,7 @@ const DrawerHomeStack = createDrawerNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const SubjectStackScreen = () => (
-  <General.Navigator>
+  <General.Navigator initialRouteName="Subject">
     <General.Screen
       options={{
         headerShown: false,
@@ -34,6 +36,15 @@ const SubjectStackScreen = () => (
       }}
       name="ClosedQuestions"
       component={ClosedQuestions}
+    />
+    <General.Screen
+      options={{
+        headerShown: true,
+        headerStyle: { backgroundColor: PRIMARY },
+        headerTintColor: WHITE,
+      }}
+      name="Alternatives"
+      component={Alternatives}
     />
   </General.Navigator>
 );
