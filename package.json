@@ -98,5 +98,8 @@
     "moduleNameMapper": {
       "^~/(.*)": "<rootDir>/src/$1"
     }
+  },
+  "rnpm":{
+    "assets":["./assets/fonts/"]
   }
 }
