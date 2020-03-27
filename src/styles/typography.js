@@ -17,6 +17,20 @@ export const FONT_SIZE_16 = scaleFont(16);
 export const FONT_SIZE_14 = scaleFont(14);
 export const FONT_SIZE_12 = scaleFont(12);
 
+export const FONT_SIZE_H1 = scaleFont(96);
+export const FONT_SIZE_H2 = scaleFont(60);
+export const FONT_SIZE_H3 = scaleFont(48);
+export const FONT_SIZE_H4 = scaleFont(34);
+export const FONT_SIZE_H5 = scaleFont(24);
+export const FONT_SIZE_H6 = scaleFont(20);
+export const FONT_SIZE_BODY_1 = scaleFont(16);
+export const FONT_SIZE_BODY_2 = scaleFont(14);
+export const FONT_SIZE_SUBTITLE_1 = scaleFont(16);
+export const FONT_SIZE_SUBTITLE_2 = scaleFont(14);
+export const FONT_SIZE_BUTTON = scaleFont(14);
+export const FONT_SIZE_CAPTION = scaleFont(12);
+export const FONT_SIZE_OVERLINE = scaleFont(10);
+
 // LINE HEIGHT
 export const LINE_HEIGHT_24 = scaleFont(24);
 export const LINE_HEIGHT_20 = scaleFont(20);
