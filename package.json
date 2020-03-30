@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll --colors",
+    "test:watch:verbose": "jest --watchAll --colors --verbose"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.8.1",
@@ -36,6 +37,7 @@
     "react-native-reanimated": "^1.7.0",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.2.0",
+    "react-native-sideswipe": "^1.5.0",
     "react-native-vector-icons": "^6.6.0",
     "react-redux": "^7.2.0",
     "reactotron-react-native": "^4.0.3",
@@ -99,7 +101,9 @@
       "^~/(.*)": "<rootDir>/src/$1"
     }
   },
-  "rnpm":{
-    "assets":["./assets/fonts/"]
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
   }
 }

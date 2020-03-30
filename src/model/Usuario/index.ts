@@ -1,4 +1,10 @@
+import {AuthService} from '../../services/authService'
 export default class Usuario  {
+
+  id: string;
+  nome: string;
+  email: string;
+  senha: string;
 
   constructor(id: string, nome:string, email: string, senha: string) {
     this.id = id;
@@ -7,11 +13,9 @@ export default class Usuario  {
     this.senha = senha;
   }
 
-  id: string;
 
-  nome: string;
 
-  email: string;
-
-  senha: string;
+  static signIn(usuario: Usuario) {
+    return new AuthService().signIn(usuario)
+  }
 }

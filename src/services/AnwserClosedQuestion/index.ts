@@ -18,8 +18,38 @@ export class AnwserClosedQuestionService {
         const anwserClosedQuestion = docs.map(doc => {
           return new RespostasQuestaoFechada(doc.data().alternativaId, doc.data().questaoId, doc.data().usuarioId)
         })
+        resolve(anwserClosedQuestion);
 
-        console.log(anwserClosedQuestion)
+      }).catch(err => {
+        reject(new Error(err));
+      })
+    });
+  }
+  public getAnwserClosedQuestions(respostaQuestaoFechada: RespostasQuestaoFechada): any {
+    return new Promise((resolve, reject) => {
+
+     const userRef = firebaseFirestore
+       .collection('respostaQuestaoFechada');
+
+      userRef.get().then(snapshot => {
+
+        const docs: any[] = [];
+        snapshot.forEach(doc => {
+          docs.push(doc)
+        })
+
+        const anwserClosedQuestion = docs.map(doc => {
+          const resposta = new RespostasQuestaoFechada(doc.data().alternativaId, doc.data().questaoId, doc.data().usuarioId)
+          resposta.id = doc.id;
+          return resposta;
+        }).filter(item => {
+          if(item.alternativaId === respostaQuestaoFechada.alternativaId &&
+            item.questaoId === respostaQuestaoFechada.questaoId &&
+            item.usuarioId === respostaQuestaoFechada.usuarioId) {
+              return item;
+            }
+        })
+
         resolve(anwserClosedQuestion);
 
       }).catch(err => {
@@ -37,12 +67,24 @@ export class AnwserClosedQuestionService {
         questaoId: anwser.questaoId,
         usuarioId: anwser.usuarioId
       }).then(ref => {
-        console.log("\n\n\n\nPEGOU\n\n\n")
         resolve(ref.id);
       }).catch(err => {
-        console.log("\n\n\n\nERROR\n\n\n")
         reject(new Error(err));
       })
     });
+  }
+  public removeAnwserClosedQuestion(id: string) {
+    return new Promise((resolve, reject) => {
+      firebaseFirestore
+        .collection('respostaQuestaoFechada')
+        .doc(id)
+        .delete()
+        .then(() => {
+          resolve(true);
+        })
+        .catch(() => {
+          reject(new Error('Não foi possivel deletar esse documento'));
+        })
+     });
   }
 }
