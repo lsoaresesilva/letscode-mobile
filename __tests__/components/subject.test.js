@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch as useDispatchRedux } from 'react-redux';
 import { render, waitForElement } from '@testing-library/react-native';
 import configureStore from 'redux-mock-store';
 import Subject from '../../src/scenes/Subject';
@@ -45,7 +45,8 @@ describe('Subject', () => {
   });
 
   it('deve renderizar a tela com 3 itens carregado na lista', async () => {
-    const mockedDispatch = jest.fn();
+    // /c//onst mockedDispatch = jest.fn();
+
     useSelector.mockImplementation(selectorFn =>
       selectorFn({
         subject: {

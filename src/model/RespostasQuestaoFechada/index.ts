@@ -6,20 +6,28 @@ export default class RespostasQuestaoFechada  {
     this.alternativaId = alternativaId;
     this.questaoId = questaoId;
     this.usuarioId = usuarioId;
-
   }
 
   alternativaId: string;
   questaoId: string;
   usuarioId: number;
+  id: string;
 
   getAll(): Promise<RespostasQuestaoFechada> {
-    const service = new AnwserClosedQuestionService();
-    return service.getAllAnwserClosedQuestions();
+    return new AnwserClosedQuestionService().getAllAnwserClosedQuestions();
+  }
+
+  static get(resposta: RespostasQuestaoFechada): RespostasQuestaoFechada {
+    return new AnwserClosedQuestionService().getAnwserClosedQuestions(resposta);
   }
 
   add(resposta: RespostasQuestaoFechada) {
-    const service = new AnwserClosedQuestionService();
-    return service.addAnwserClosedQuestion(resposta.alternativaId, resposta.questaoId, resposta.usuarioId);
+    return new AnwserClosedQuestionService()
+    .addAnwserClosedQuestion(new RespostasQuestaoFechada(this.alternativaId, this.questaoId, this.usuarioId));
+  }
+
+  delete() {
+    return new AnwserClosedQuestionService()
+    .removeAnwserClosedQuestion(this.id);
   }
 }

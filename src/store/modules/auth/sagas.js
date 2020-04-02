@@ -3,18 +3,19 @@
 import { Alert } from 'react-native';
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import Usuario from '../../../model/Usuario';
-import { AuthService } from '../../../services/authService';
-
 import { signInSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
   try {
     const { email, password } = payload;
     const user = new Usuario('', '', email, password);
-    const auth = new AuthService();
-    const userSigned = yield call(auth.signIn, user);
+    user.email = email;
+    user.senha = password;
+    const userSigned = yield call(Usuario.signIn, user);
+
     yield put(signInSuccess(userSigned));
   } catch (error) {
+    console.tron.log(`${error}`);
     Alert.alert(
       'Falha na autenticação',
       'Houve um erro no login, verifiique seus dados'

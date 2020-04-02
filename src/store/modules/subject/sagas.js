@@ -12,7 +12,6 @@ export function* getAllSubject() {
     const subjects = yield call(subjectService.getAllSubjects);
     yield put(getAllSUbjectSuccess(subjects));
   } catch (error) {
-    console.tron.log('error', error);
     Alert.alert('Falha na requisição de assuntos');
     yield put(getAllSUbjectFailure());
   }

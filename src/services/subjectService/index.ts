@@ -6,11 +6,11 @@ import QuestaoFechada from '../../model/QuestaoFechada';
 import Alternativa from '../../model/Alternativa';
 
 export class SubjectService {
-  getAllSubjects(): any {
+  public getAllSubjects(): any {
     return new Promise((resolve, reject) => {
 
-     const userRef = firebaseFirestore
-       .collection('assuntos');
+      const userRef = firebaseFirestore
+      .collection('assuntos');
 
       userRef.get().then(snapshot => {
 
@@ -19,30 +19,66 @@ export class SubjectService {
           docs.push(doc)
         })
 
-        const subjects = docs.map(doc => {
+        // percorrendo os assuntos
+        const assuntos = docs.map(assunto => {
 
-          // mapeando as questões para agrupa-las como objeto QuestaoFechada
-          const questions = doc.data().questoesFechadas.map((question) => {
+          // percorrendo as questões fechadas
+          const questoesFechadas = assunto.data().questoesFechadas.map((questaoFechada: { alternativas: { id: string; isVerdadeira: boolean; texto: string; }[]; id: string; nomeCurto: string; enunciado: string; dificuldade: number; respostaQuestao: string; sequencia: number; }) => {
 
-            // mapeando as alternativas para agrupa-las como objeto Alternativa
-            const alternatives = question.alternativas.map((alternative) => {
-              return new Alternativa(alternative.id, alternative.isVerdadeira, alternative.texto);
+            // percorrendo as alternativas
+            const alternativas = questaoFechada.alternativas.map((alternativa: { id: string; isVerdadeira: boolean; texto: string; }) => {
+              // adicionando as alternativas
+              return new Alternativa(alternativa.id, alternativa.isVerdadeira, alternativa.texto);
             })
 
-            return new QuestaoFechada(question.id,
-              question.nomeCurto, question.enunciado, question.dificuldade,
-              alternatives, question.respostaQuestao, question.sequencia)
+            // adicionando as questões fechadas
+            return new QuestaoFechada(questaoFechada.id,
+              questaoFechada.nomeCurto, questaoFechada.enunciado, questaoFechada.dificuldade,
+              alternativas, questaoFechada.respostaQuestao, questaoFechada.sequencia)
           })
 
-          return new Assunto(doc.id, doc.data().nome, doc.data().sequencia, questions)
-        })
-        .sort((a,b) => a.sequencia < b.sequencia ? -1 : 1)
+          // criando os assuntos
+          return new Assunto(assunto.id, assunto.data().nome, assunto.data().sequencia, questoesFechadas)
 
-         resolve(subjects);
+        });
+
+        resolve(assuntos);
 
       }).catch(err => {
-        reject(new Error(err));
+        reject(new Error('Erro ao listar os assuntos'));
       })
     });
+  }
+
+  public save(assunto: Assunto): any {
+     return new Promise((resolve, reject) => {
+      const userRef = firebaseFirestore
+        .collection('assuntos').doc(assunto.id).set({
+          nome: assunto.nome,
+          sequencia: assunto.sequencia,
+          questoesFechadas: [],
+          questoesProgramacao: [],
+          importancia: ''
+        }).then(() => {
+          resolve();
+        }).catch(err => {
+          reject(new Error(err));
+        })
+     });
+  }
+
+  public delete(id: string): any {
+    return new Promise((resolve, reject) => {
+      firebaseFirestore
+        .collection('assuntos')
+        .doc(id)
+        .delete()
+        .then(() => {
+          resolve(true);
+        })
+        .catch(() => {
+          reject(new Error('Não foi possivel deletar esse documento'));
+        })
+     });
   }
 }
