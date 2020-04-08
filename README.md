@@ -6,7 +6,7 @@
  - React-native
  - Yarn
  - Node 12.X.X
- - Reactotron para visualizar logs (opcional)
+ - Reactotron para visualizar logs (opcional o uso)
 
 ### Instalando
 
@@ -29,7 +29,7 @@
 | STORAGE_BUCKET | storage bucket do firebase | STORAGE_BUCKET=example-project.appspot.com | sim |
 | MESSAGING_SENDER_ID | messaging sender id do firebase | MESSAGING_SENDER_ID=6344947242342 | sim |
 | APP_ID | app id id do firebase | MESSAGING_SENDER_ID=1:634234234324:web:08f409b2342343cf7851| sim |
-| HOST_IP | IP da máquina que está rodando esse projeto | HOST_IP=192.168.0.155 | não |
+| HOST_IP | IP da máquina que está rodando esse projeto | HOST_IP=192.168.0.155 | sim |
 
 5. Por fim digite `react-native start`
 
