@@ -32,4 +32,13 @@ export default class QuestaoFechada {
   respostaQuestao: string;
 
   sequencia: number;
+
+  isRespondida(): number {
+    return this.id;
+  }
+
+  isCerta(): boolean {
+    const a = this.id;
+    return 0;
+  }
 }

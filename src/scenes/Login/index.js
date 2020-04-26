@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar } from 'react-native';
+import {
+  StatusBar,
+  Alert,
+  View,
+  Dimensions,
+  Animated as AnimatedNative,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import Animated, { Value, Easing } from 'react-native-reanimated';
+
 import { signInRequest, signOut } from '../../store/modules/auth/actions';
-import { SCALE_8 } from '../../styles/spacing';
+import { SCALE_8, SCALE_32 } from '../../styles/spacing';
 
 import {
   Form,
@@ -12,8 +20,11 @@ import {
   InputText,
   ButtonLogin,
   LogoText,
+  ContentFooter,
   CreateAccountLink,
 } from './styles';
+
+import ButtonN from '../../components/atoms/Button';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -21,7 +32,12 @@ const App = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [waitingRequest, setWaitingRequest] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
   const loadingRequest = useSelector(state => state.auth.loading);
+
+  const heightAnimated = new Value(90);
+  const paddingAnimated = new Value(SCALE_32);
+  const heightButtonShow = new Value(60);
 
   const handleLogin = () => {
     dispatch(signInRequest(email, password));
@@ -34,6 +50,28 @@ const App = () => {
       setWaitingRequest(false);
     }
   }, [loadingRequest]);
+
+  const openRegisterAccout = () => {
+    AnimatedNative.sequence([
+      AnimatedNative.parallel([
+        Animated.timing(heightAnimated, {
+          toValue: Dimensions.get('screen').height,
+          duration: 600,
+          easing: Easing.ease,
+        }),
+        Animated.timing(paddingAnimated, {
+          toValue: 0,
+          duration: 800,
+          easing: Easing.linear,
+        }),
+        Animated.timing(heightButtonShow, {
+          toValue: 0,
+          duration: 200,
+          easing: Easing.linear,
+        }),
+      ]),
+    ]).start();
+  };
 
   return (
     <Container>
@@ -65,14 +103,31 @@ const App = () => {
             onChangeText={setPassword}
           />
 
-          <ButtonLogin loading={waitingRequest} onPress={handleLogin}>
+          <ButtonLogin
+            loading={waitingRequest}
+            onPress={() => {
+              handleLogin();
+            }}
+          >
             ENTRAR
           </ButtonLogin>
         </Form>
       </ContainerForm>
-
-      <Footer>
-        <CreateAccountLink>crie sua conta</CreateAccountLink>
+      <Footer
+        style={{
+          height: heightAnimated,
+          padding: paddingAnimated,
+        }}
+      >
+        <ContentFooter
+          style={{
+            height: heightButtonShow,
+          }}
+        >
+          <CreateAccountLink onPress={openRegisterAccout}>
+            crie sua conta
+          </CreateAccountLink>
+        </ContentFooter>
       </Footer>
     </Container>
   );

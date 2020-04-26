@@ -42,6 +42,7 @@ const SubjectStackScreen = () => (
         headerShown: true,
         headerStyle: { backgroundColor: PRIMARY },
         headerTintColor: WHITE,
+        title: 'Questão',
       }}
       name="Alternatives"
       component={Alternatives}

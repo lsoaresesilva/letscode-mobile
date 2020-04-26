@@ -34,4 +34,14 @@ export default class Assunto {
     return new SubjectService().delete(this.id);
   }
 
+  quantidadeQuestoesRespondidas(): number {
+    return 0;
+  }
+
+  porcentagemQuestoesRespondidas(): number {
+    return 0;
+  }
+
+
+
 }

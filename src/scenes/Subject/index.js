@@ -5,6 +5,7 @@ import { Text, View, Button, Dimensions } from 'react-native';
 import { BaseButton } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SideSwipe from 'react-native-sideswipe';
+import Carousel from 'react-native-snap-carousel';
 import { getAllSubject } from '../../store/modules/subject/actions';
 import { PRIMARY } from '../../styles/colors';
 import Paginator from '../../components/molecules/PaginatorHorizontal';
@@ -13,18 +14,18 @@ import {
   HeaderContainer,
   Header,
   HeaderItem,
-  ListView,
+  GoSubject,
   ListItem,
   IconSequence,
   IconSequenceNumber,
   MetainfoTitle,
   ContainerNumberQuestions,
-  IconQtd,
+  Progress,
   TextQtdQuestions,
   HeaderItemAction,
   HeaderItemTitle,
   MetainfoContainer,
-  ScrollListView,
+  ProgressPoint,
 } from './styles';
 
 export default ({ navigation }) => {
@@ -48,49 +49,55 @@ export default ({ navigation }) => {
       </View>
     );
   }
-  const CustomComponent = item => (
-    <ListItem
-      onPress={() => {
-        navigation.navigate('ClosedQuestions', {
-          idSubject: item.id,
-        });
-      }}
-      key={item.id}
-    >
-      <IconSequence>
-        <IconSequenceNumber>{item.sequencia}</IconSequenceNumber>
-      </IconSequence>
-      <MetainfoContainer>
-        <MetainfoTitle>{item.nome}</MetainfoTitle>
-
-        <TextQtdQuestions>
-          {item.questoesFechadas.length} Questões
-        </TextQtdQuestions>
-        <Text style={{ marginLeft: 25, marginRight: 25 }} />
-        <Button
-          style={{
-            marginTop: 20,
-            width: '100%',
-            height: 60,
-            color: '#fff',
-            alignContent: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#3400FF',
-          }}
-          onPress={() =>
-            navigation.navigate('ClosedQuestions', {
-              idSubject: item.id,
-            })
-          }
-          title="INICIAR"
-        />
-      </MetainfoContainer>
-    </ListItem>
-  );
 
   const itemWidth = Dimensions.get('window').width - 90;
   const { width } = Dimensions.get('window');
   const contentOffset = (width - 300) / 2;
+
+  const renderItem = ({ item, index }) => {
+    return (
+      <>
+        <ListItem
+          onPress={() => {
+            navigation.navigate('ClosedQuestions', {
+              idSubject: item.id,
+            });
+          }}
+          key={item.id}
+        >
+          <IconSequence>
+            <IconSequenceNumber>{item.sequencia}</IconSequenceNumber>
+          </IconSequence>
+          <MetainfoContainer>
+            <MetainfoTitle>{item.nome}</MetainfoTitle>
+
+            <TextQtdQuestions>
+              {item.questoesFechadas.length} Questões
+            </TextQtdQuestions>
+            <Text style={{ marginLeft: 25, marginRight: 25 }} />
+            <GoSubject
+              onPress={() =>
+                navigation.navigate('ClosedQuestions', {
+                  idSubject: item.id,
+                })
+              }
+            >
+              <Text
+                style={{
+                  color: '#fff',
+                }}
+              >
+                INICIAR
+              </Text>
+            </GoSubject>
+          </MetainfoContainer>
+        </ListItem>
+        <Progress>
+          <ProgressPoint max={item.questoesFechadas.length} />
+        </Progress>
+      </>
+    );
+  };
 
   return (
     <>
@@ -111,21 +118,16 @@ export default ({ navigation }) => {
       </HeaderContainer>
 
       <Container testID="subject-testid" index={currentIndex}>
-        <SideSwipe
-          itemWidth={300}
-          style={{ width }}
-          data={subjects}
-          contentOffset={contentOffset}
-          onIndexChange={index => setCurrentIndex(index)}
-          renderItem={({ itemIndex, currentIndex, item, animatedValue }) => (
-            <CustomComponent
-              {...item}
-              index={itemIndex}
-              currentIndex={currentIndex}
-              animatedValue={animatedValue}
-            />
-          )}
-        />
+        <View style={{}}>
+          <Carousel
+            data={subjects}
+            renderItem={renderItem}
+            itemWidth={itemWidth}
+            layout="default"
+            sliderWidth={width}
+            style={{}}
+          />
+        </View>
       </Container>
     </>
   );

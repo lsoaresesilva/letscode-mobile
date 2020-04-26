@@ -6,7 +6,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { BaseButton } from 'react-native-gesture-handler';
-import { PRIMARY, SECONDARY, WHITE } from '../../styles/colors';
+import { PRIMARY, SECONDARY, WHITE, SUCCESS } from '../../styles/colors';
 import { SCALE_32 } from '../../styles/spacing';
 
 export const Container = styled.View`
@@ -52,18 +52,13 @@ export const HeaderItem = styled.Text`
 export const ListView = styled(FlatList)`
   height: 100%;
 `;
-export const ScrollListView = styled(ScrollView)`
-  height: 100%;
-  left: 1px;
-  padding: 0px 25px;
-`;
+
 // height: ${Dimensions.get('window').height - 200};
 export const ListItem = styled.View`
   background: ${WHITE};
   width: ${Dimensions.get('window').width - 90};
-
   border-radius: 8px;
-  margin: 0px 32px 0px 0px;
+  margin: 50% 32px 0px 0px;
   flex-direction: column;
   align-items: center;
 `;
@@ -90,7 +85,7 @@ export const MetainfoContainer = styled.View`
   margin: 0px 15px;
   width: 100%;
   padding: 30px;
-  padding-top: 0px;
+  padding-bottom: 0px;
   align-items: center;
   justify-content: center;
 `;
@@ -100,6 +95,7 @@ export const MetainfoTitle = styled.Text`
   font-weight: bold;
   font-size: 25px;
   margin-top: 20px;
+  text-align: center;
 `;
 
 export const ContainerNumberQuestions = styled.View`
@@ -109,21 +105,31 @@ export const ContainerNumberQuestions = styled.View`
   flex-direction: row;
 `;
 
-export const IconQtd = styled.Text`
-  width: 30px;
+export const Progress = styled.View`
+  background: white;
+  margin: 16px 20px 0px 20px;
   height: 20px;
-  background: #4893ff;
-  border-radius: 5px;
-  margin-right: 6px;
-  text-align: center;
-  color: #fff;
-  display: flex;
-  padding: 2px 0px;
+  border-radius: 15px;
+  padding: 0px 6px;
   justify-content: center;
-  align-items: center;
-  font-size: 10px;
 `;
-
+export const ProgressPoint = styled.View`
+  height: 50%;
+  width: ${props => `${props.max}%`};
+  background: ${SUCCESS};
+  border-radius: 20px;
+`;
 export const TextQtdQuestions = styled.Text`
   color: #565656;
+  margin-top: 10px;
+`;
+
+export const GoSubject = styled(BaseButton)`
+  background: ${SECONDARY};
+  border-radius: 3px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 15px 0px;
+  align-items: center;
+  justify-content: center;
 `;

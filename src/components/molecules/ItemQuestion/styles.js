@@ -5,10 +5,8 @@ export const Container = styled(TouchableOpacity)`
   width: 100%;
   font-size: 14px;
   flex-direction: row;
-  border: 2px solid ${props => props.cor};
-  border: 2px solid ${props => (props.correct ? 'green' : props.cor)};
 
-  margin: 10px 0px;
+  margin: 10px 0px 10px 0px;
   border-radius: 3px;
 `;
 

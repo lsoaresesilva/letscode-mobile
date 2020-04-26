@@ -22,6 +22,8 @@ import {
   MetainfoContainer,
 } from './styles';
 
+import ItemQuestao from '../../components/molecules/ItemQuestao';
+
 export default ({ route, navigation }) => {
   const dispatch = useDispatch();
   const { idSubject } = route.params;
@@ -52,28 +54,51 @@ export default ({ route, navigation }) => {
   console.tron.log(subjects);
 
   return (
-    <Container>
-      <HeaderContainer>
-        <Header>
-          <HeaderItemAction
-            onPress={() => {
-              navigation.navigate('Home');
-            }}
-          >
-            <HeaderItem>
-              <Icon name="chevron-left" size={20} color="#fff" />
-            </HeaderItem>
-          </HeaderItemAction>
+    <>
+      <Container>
+        <HeaderContainer>
+          <Header>
+            <HeaderItemAction
+              onPress={() => {
+                navigation.navigate('Home');
+              }}
+            >
+              <HeaderItem>
+                <Icon name="chevron-left" size={20} color="#fff" />
+              </HeaderItem>
+            </HeaderItemAction>
 
-          <HeaderItemTitle>{subjects.nome}</HeaderItemTitle>
-          <HeaderItemAction>
-            <HeaderItem>
-              <Icon name="filter" size={20} color="#fff" />
-            </HeaderItem>
-          </HeaderItemAction>
-        </Header>
-      </HeaderContainer>
-      <ListView
+            <HeaderItemTitle>{subjects.nome}</HeaderItemTitle>
+            <HeaderItemAction>
+              <HeaderItem>
+                <Icon name="filter" size={20} color="#fff" />
+              </HeaderItem>
+            </HeaderItemAction>
+          </Header>
+        </HeaderContainer>
+        <ListView
+          data={alternatives}
+          renderItem={({ item, index }) => (
+            <ItemQuestao
+              title={item.nomeCurto}
+              index={index}
+              status={item.respostaQuestao}
+              handlePress={() => {
+                navigation.navigate('Alternatives', {
+                  idAlternative: item.id,
+                  idSubject,
+                });
+              }}
+            />
+          )}
+        />
+      </Container>
+    </>
+  );
+};
+
+/*
+<ListView
         data={alternatives}
         renderItem={({ item }) => (
           <ListItem
@@ -107,6 +132,4 @@ export default ({ route, navigation }) => {
           </ListItem>
         )}
       />
-    </Container>
-  );
-};
+*/
