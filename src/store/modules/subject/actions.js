@@ -17,8 +17,21 @@ export function getAllSUbjectFailure() {
   };
 }
 
-export function quantidadeQuestoes() {
+export function getQuantidadeQuestoes() {
   return {
-    ttype: '@assunto/QUANTIDADE_QUESTOES',
+    type: '@assunto/QUANTIDADE_QUESTOES',
+  };
+}
+
+export function getQuantidadeQuestoesFalhou() {
+  return {
+    type: '@assunto/QUANTIDADE_QUESTOES',
+  };
+}
+
+export function getQuantidadeQuestoesSucesso(quantidade) {
+  return {
+    type: '@assunto/QUANTIDADE_QUESTOES',
+    payload: quantidade,
   };
 }

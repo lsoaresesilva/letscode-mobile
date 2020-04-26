@@ -4,7 +4,11 @@ import { Alert } from 'react-native';
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { SubjectService } from '../../../services/subjectService';
 
-import { getAllSUbjectFailure, getAllSUbjectSuccess } from './actions';
+import {
+  getAllSUbjectFailure,
+  getAllSUbjectSuccess,
+  quantidadeQuestoes,
+} from './actions';
 
 export function* getAllSubject() {
   try {
@@ -17,4 +21,18 @@ export function* getAllSubject() {
   }
 }
 
-export default all([takeLatest('@subject/GET_ALL_SUBJECT', getAllSubject)]);
+export function* quantidadeQuestoesa() {
+  try {
+    const subjectService = new SubjectService();
+    const subjects = yield call(subjectService.getAllSubjects);
+    yield put(getAllSUbjectSuccess(subjects));
+  } catch (error) {
+    Alert.alert('Falha na requisição de assuntos');
+    yield put(getAllSUbjectFailure());
+  }
+}
+
+export default all([
+  takeLatest('@subject/GET_ALL_SUBJECT', getAllSubject),
+  takeLatest('@assunto/QUANTIDADE_QUESTOES', quantidadeQuestoes),
+]);
