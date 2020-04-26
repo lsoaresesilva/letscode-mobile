@@ -16,3 +16,9 @@ export function getAllSUbjectFailure() {
     type: '@subject/GET_ALL_SUBJECT_FAILURE',
   };
 }
+
+export function quantidadeQuestoes() {
+  return {
+    ttype: '@assunto/QUANTIDADE_QUESTOES',
+  };
+}

@@ -35,7 +35,7 @@ export default class Assunto {
   }
 
   quantidadeQuestoesRespondidas(): number {
-    return 0;
+    return new SubjectService().quantidadeQuestoesRespondidas(this.id);
   }
 
   porcentagemQuestoesRespondidas(): number {

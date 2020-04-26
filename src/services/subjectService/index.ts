@@ -81,4 +81,9 @@ export class SubjectService {
         })
      });
   }
+
+  public quantidadeQuestoesRespondidas(id: string): any {
+
+  }
+
 }

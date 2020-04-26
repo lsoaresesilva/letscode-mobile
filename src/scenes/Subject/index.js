@@ -4,11 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Text, View, Button, Dimensions } from 'react-native';
 import { BaseButton } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import SideSwipe from 'react-native-sideswipe';
 import Carousel from 'react-native-snap-carousel';
 import { getAllSubject } from '../../store/modules/subject/actions';
 import { PRIMARY } from '../../styles/colors';
-import Paginator from '../../components/molecules/PaginatorHorizontal';
 import {
   Container,
   HeaderContainer,
