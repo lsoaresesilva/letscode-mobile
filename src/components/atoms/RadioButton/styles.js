@@ -9,6 +9,8 @@ export const Container = styled.View`
   border-color: ${PRIMARY};
   align-items: center;
   justify-content: center;
+  border-color: ${props =>
+    props.bgColor === 'red' || props.bgColor === 'green' ? '#fff' : '#000'};
 `;
 
 export const Dot = styled.View`
@@ -16,4 +18,6 @@ export const Dot = styled.View`
   width: 12px;
   border-radius: 6px;
   background-color: ${PRIMARY};
+  background: ${props =>
+    props.bgColor === 'red' || props.bgColor === 'green' ? '#fff' : '#000'};
 `;

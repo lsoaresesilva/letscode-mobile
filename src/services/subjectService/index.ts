@@ -5,8 +5,9 @@ import Assunto from '../../model/Assunto';
 import QuestaoFechada from '../../model/QuestaoFechada';
 import Alternativa from '../../model/Alternativa';
 
+
 export class SubjectService {
-  public getAllSubjects(): any {
+  public todosAssuntos(): Promise<Assunto>  {
     return new Promise((resolve, reject) => {
 
       const userRef = firebaseFirestore
@@ -20,7 +21,7 @@ export class SubjectService {
         })
 
         // percorrendo os assuntos
-        const assuntos = docs.map(assunto => {
+        const assuntos: Assunto[] = docs.map(assunto => {
 
           // percorrendo as questões fechadas
           const questoesFechadas = assunto.data().questoesFechadas.map((questaoFechada: { alternativas: { id: string; isVerdadeira: boolean; texto: string; }[]; id: string; nomeCurto: string; enunciado: string; dificuldade: number; respostaQuestao: string; sequencia: number; }) => {
@@ -36,16 +37,16 @@ export class SubjectService {
               questaoFechada.nomeCurto, questaoFechada.enunciado, questaoFechada.dificuldade,
               alternativas, questaoFechada.respostaQuestao, questaoFechada.sequencia)
           })
-
-          // criando os assuntos
-          return new Assunto(assunto.id, assunto.data().nome, assunto.data().sequencia, questoesFechadas)
+          const assuntoCriado: Assunto = new Assunto(assunto.id, assunto.data().nome, assunto.data().sequencia, questoesFechadas, assunto.data().importancia);
+          assuntoCriado.quantidadeQuestoesFechadas = questoesFechadas.length;
+          return assuntoCriado
 
         });
 
         resolve(assuntos);
 
       }).catch(err => {
-        reject(new Error('Erro ao listar os assuntos'));
+        reject(err);
       })
     });
   }
@@ -53,13 +54,7 @@ export class SubjectService {
   public save(assunto: Assunto): any {
      return new Promise((resolve, reject) => {
       const userRef = firebaseFirestore
-        .collection('assuntos').doc(assunto.id).set({
-          nome: assunto.nome,
-          sequencia: assunto.sequencia,
-          questoesFechadas: [],
-          questoesProgramacao: [],
-          importancia: ''
-        }).then(() => {
+        .collection('assuntos').doc(assunto.id).set(assunto.toJSON()).then(() => {
           resolve();
         }).catch(err => {
           reject(new Error(err));
@@ -81,4 +76,66 @@ export class SubjectService {
         })
      });
   }
+
+  public assuntoPorId(id: string): Promise<Assunto> {
+    return new Promise((resolve, reject) => {
+
+      const userRef = firebaseFirestore
+      .collection('assuntos');
+      userRef.doc(id).get().then(snapshot => {
+
+        let docs: any = snapshot;
+
+        const questoesFechadas = docs.data().questoesFechadas.map((questaoFechada: { alternativas: { id: string; isVerdadeira: boolean; texto: string; }[]; id: string; nomeCurto: string; enunciado: string; dificuldade: number; respostaQuestao: string; sequencia: number; }) => {
+          // percorrendo as alternativas
+          const alternativas = questaoFechada.alternativas.map((alternativa: { id: string; isVerdadeiro: boolean; texto: string; }) => {
+            // adicionando as alternativas/ alternativa.isVerdadeira
+            console.log('\n\n\n\n-------------->>>>>>>>>>>', alternativa)
+            return new Alternativa(alternativa.id, alternativa.isVerdadeiro, alternativa.texto);
+          })
+
+          // adicionando as questões fechadas
+          return new QuestaoFechada(questaoFechada.id,
+            questaoFechada.nomeCurto, questaoFechada.enunciado, questaoFechada.dificuldade,
+            alternativas, questaoFechada.respostaQuestao || '', questaoFechada.sequencia)
+        })
+
+        const assuntoCriado = new Assunto(docs.id, docs.data().nome, docs.data().sequencia, questoesFechadas);
+
+        resolve(assuntoCriado);
+
+      }).catch(err => {
+        reject(err);
+      })
+    });
+  }
+
+  public quantidadeQuestoesRespondidas(usuarioId: string, questaoId: string): Promise<Assunto> {
+    return new Promise((resolve, reject) => {
+
+      const userRef = firebaseFirestore
+      .collection('assuntos');
+
+      userRef.get().then(snapshot => {
+
+        const docs: any[] = [];
+        snapshot.forEach(doc => {
+          docs.push(doc)
+        })
+
+        // percorrendo os assuntos
+        const assuntos: Assunto[] = docs.map(assunto => {
+          // percorrendo as questões fechadas
+          const questoesFechadas = assunto.data().questoesFechadas.map((questaoFechada: any) => questaoFechada.id)
+          return new Assunto(assunto.id, assunto.data().nome, assunto.data().sequencia, questoesFechadas, assunto.data().importancia);
+        });
+
+        resolve(assuntos);
+
+      }).catch(err => {
+        reject(new Error('Erro ao listar os assuntos'));
+      })
+    });
+  }
+
 }

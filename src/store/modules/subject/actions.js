@@ -16,3 +16,22 @@ export function getAllSUbjectFailure() {
     type: '@subject/GET_ALL_SUBJECT_FAILURE',
   };
 }
+
+export function getQuantidadeQuestoes() {
+  return {
+    type: '@assunto/QUANTIDADE_QUESTOES',
+  };
+}
+
+export function getQuantidadeQuestoesFalhou() {
+  return {
+    type: '@assunto/QUANTIDADE_QUESTOES',
+  };
+}
+
+export function getQuantidadeQuestoesSucesso(quantidade) {
+  return {
+    type: '@assunto/QUANTIDADE_QUESTOES',
+    payload: quantidade,
+  };
+}

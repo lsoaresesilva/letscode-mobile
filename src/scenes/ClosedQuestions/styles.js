@@ -1,33 +1,32 @@
 import styled from 'styled-components/native';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { BaseButton } from 'react-native-gesture-handler';
+import { PRIMARY, SECONDARY, WHITE, SUCCESS } from '../../styles/colors';
 
 export const Container = styled.View`
   height: 100%;
   position: relative;
-  background: #ecf2ff;
+  background: ${PRIMARY};
 `;
 
 export const HeaderContainer = styled.View`
   background: #341c94;
-  height: 160px;
-  border-bottom-left-radius: 40px;
-  border-bottom-right-radius: 40px;
 `;
 
+// border-bottom-left-radius: 40px;
+// border-bottom-right-radius: 40px;
+
 export const Header = styled.View`
-  margin: 25px;
-  margin-top: 30px;
   flex-direction: row;
-  height: 60px;
-  align-items: flex-start;
+  height: 80px;
+  align-items: center;
   justify-content: space-between;
   z-index: 1;
+  padding: 0px 20px;
 `;
 
 export const HeaderItemTitle = styled.Text`
   font-size: 20px;
-  height: 100%;
   flex: 1;
   padding: 0px 20px;
   justify-content: center;
@@ -47,10 +46,8 @@ export const HeaderItem = styled.Text`
 export const ListView = styled(FlatList)`
   height: 100%;
   z-index: 10;
-  top: -70px;
-  left: 1px;
   padding: 0px 25px;
-  margin-bottom: -70px;
+  margin: 0px 0px;
 `;
 
 export const ListItem = styled(BaseButton)`

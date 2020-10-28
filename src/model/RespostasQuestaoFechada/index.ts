@@ -1,8 +1,10 @@
 import { AnwserClosedQuestionService } from './../../services/AnwserClosedQuestion'
+import { RespostaQuestaoFechadaService } from './../../services/respostaQuestaoFechadaSevice'
 
 export default class RespostasQuestaoFechada  {
 
-  constructor(alternativaId: string, questaoId: string, usuarioId: number) {
+  constructor(id: string, alternativaId: string, questaoId: string, usuarioId: string) {
+    this.id = id;
     this.alternativaId = alternativaId;
     this.questaoId = questaoId;
     this.usuarioId = usuarioId;
@@ -10,24 +12,35 @@ export default class RespostasQuestaoFechada  {
 
   alternativaId: string;
   questaoId: string;
-  usuarioId: number;
+  usuarioId: string;
   id: string;
 
   getAll(): Promise<RespostasQuestaoFechada> {
     return new AnwserClosedQuestionService().getAllAnwserClosedQuestions();
   }
 
-  static get(resposta: RespostasQuestaoFechada): RespostasQuestaoFechada {
-    return new AnwserClosedQuestionService().getAnwserClosedQuestions(resposta);
+  buscar(): any {
+    const service = new RespostaQuestaoFechadaService();
+    return service.buscarPorAtributos(this.alternativaId, this.questaoId, this.usuarioId);
   }
 
-  add(resposta: RespostasQuestaoFechada) {
-    return new AnwserClosedQuestionService()
-    .addAnwserClosedQuestion(new RespostasQuestaoFechada(this.alternativaId, this.questaoId, this.usuarioId));
+  submeter() {
+    const service = new RespostaQuestaoFechadaService();
+    return service.enviarResposta(this.alternativaId, this.questaoId, this.usuarioId);
   }
 
   delete() {
-    return new AnwserClosedQuestionService()
-    .removeAnwserClosedQuestion(this.id);
+    const service = new RespostaQuestaoFechadaService();
+    return service.removerResposta(this.id);
   }
+
+  isQuestaoCorreta() {
+
+  }
+
+  static buscarRespostasPorUsuario(idUsuario: string) {
+    const service = new RespostaQuestaoFechadaService();
+    return service.buscarPorIdUsuario(idUsuario);
+  }
+
 }

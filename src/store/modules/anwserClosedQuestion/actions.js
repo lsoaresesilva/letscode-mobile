@@ -17,11 +17,14 @@ export function getAllAnwserQuestionFailure() {
   };
 }
 
-export function addAnwserQuestion(payload) {
-  console.tron.log('action', payload);
+export function addAnwserQuestion(alternativaId, questaoId, usuarioId) {
   return {
     type: '@anwser-closed-question/ADD',
-    payload,
+    payload: {
+      alternativaId,
+      questaoId,
+      usuarioId,
+    },
   };
 }
 

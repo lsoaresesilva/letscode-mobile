@@ -4,7 +4,7 @@ import { Container } from './styles';
 
 function Input({ style, ...rest }, ref) {
   return (
-    <Container style={style}>
+    <Container lineBottomColor="#fff" lineBottomWeight="0px" style={style}>
       <TextInput style={{ width: '100%' }} {...rest} ref={ref} />
     </Container>
   );
