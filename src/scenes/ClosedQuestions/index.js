@@ -51,7 +51,7 @@ export default ({ route, navigation }) => {
     );
   }
 
-  console.tron.log(subjects);
+  console.tron.log('\n\n\n\n\naaaaaaaaaaaaaaa ', subjects.questoesFechadas);
 
   return (
     <>
@@ -78,19 +78,22 @@ export default ({ route, navigation }) => {
         </HeaderContainer>
         <ListView
           data={alternatives}
-          renderItem={({ item, index }) => (
-            <ItemQuestao
-              title={item.nomeCurto}
-              index={index}
-              status={item.respostaQuestao}
-              handlePress={() => {
-                navigation.navigate('Alternatives', {
-                  idAlternative: item.id,
-                  idSubject,
-                });
-              }}
-            />
-          )}
+          renderItem={({ item, index }) => {
+            // console.log('\n\n\n\n => ', item);
+            return (
+              <ItemQuestao
+                title={item.nomeCurto}
+                index={index}
+                status={item.respostaQuestao}
+                handlePress={() => {
+                  navigation.navigate('Alternatives', {
+                    idAlternative: item.id,
+                    idSubject,
+                  });
+                }}
+              />
+            );
+          }}
         />
       </Container>
     </>

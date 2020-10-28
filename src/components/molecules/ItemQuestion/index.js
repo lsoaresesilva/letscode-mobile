@@ -3,11 +3,13 @@ import { Container, RadioContainer, AlternativeText } from './styles';
 import RadioButton from '../../atoms/RadioButton';
 
 export default (
-  { actived, text, idRadio, handleClick, correct, cor },
+  { bgColor, actived, text, idRadio, handleClick, correct, cor },
   props
 ) => {
+  // console.log('\n\n\n\n----\n\n\n-----\n\n\n---\n\n\n\n----', bgColor);
   return (
     <Container
+      bgColor={bgColor}
       onPress={() => {
         handleClick();
       }}
@@ -15,10 +17,10 @@ export default (
       cor={cor}
       {...props}
     >
-      <RadioContainer>
-        <RadioButton idRadio={idRadio} actived={actived} />
+      <RadioContainer bgColor={bgColor}>
+        <RadioButton bgColor={bgColor} idRadio={idRadio} actived={actived} />
       </RadioContainer>
-      <AlternativeText>{text}</AlternativeText>
+      <AlternativeText bgColor={bgColor}>{text}</AlternativeText>
     </Container>
   );
 };

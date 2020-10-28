@@ -24,17 +24,33 @@ export function* getAllAnwser() {
   }
 }
 
-export function* addAnwser(alternativa: RespostasQuestaoFechada) {
-  console.tron.log('saga', alternativa);
+const enviarResposta = (alternativaId, questaoId, usuarioId) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const respostaTres = new RespostasQuestaoFechada(
+        '',
+        alternativaId,
+        questaoId,
+        usuarioId
+      );
+      respostaTres.submeter();
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export function* addAnwser(alternativa) {
   try {
-    const service = new AnwserClosedQuestionService();
-    const anwsers = yield call(
-      service.addAnwserClosedQuestion,
-      alternativa.payload
+    console.tron.log('____________', alternativa);
+    const alternativeRespondiade = yield call(
+      enviarResposta,
+      alternativa.payload.alternativaId,
+      alternativa.payload.questaoId,
+      alternativa.payload.usuarioId
     );
-    yield put(addAnwserQuestionSuccess(anwsers));
+    yield put(addAnwserQuestionSuccess(alternativeRespondiade));
   } catch (error) {
-    console.tron.log('error', error);
     Alert.alert('Falha na requisição de assuntos');
     yield put(addAnwserQuestionFailure());
   }

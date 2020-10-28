@@ -3,11 +3,12 @@ import ItemQuestion from '../../molecules/ItemQuestion';
 
 import { ListView } from './styles';
 
-export default ({ data, handleSubmit, showAwnser }) => {
+export default ({ data, questaoRespondida, handleSubmit, showAwnser }) => {
   const [selected, setSelected] = useState(false);
 
   const listItem = data.map(item => (
     <ItemQuestion
+      bgColor="red"
       handleClick={() => {
         handleSubmit(item);
         setSelected(true);

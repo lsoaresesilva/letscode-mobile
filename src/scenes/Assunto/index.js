@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Text, View, Button, Dimensions } from 'react-native';
+import { Text, View, Alert, Dimensions } from 'react-native';
 import { BaseButton } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Carousel from 'react-native-snap-carousel';
@@ -25,18 +25,24 @@ import {
   MetainfoContainer,
   ProgressPoint,
 } from './styles';
+import Assunto from '../../model/Assunto';
 
 export default ({ navigation }) => {
   const dispatch = useDispatch();
+  const [loader, setload] = useState(false);
 
   const cardRef = useRef(null);
 
   const loading = useSelector(state => state.subject.loading);
   const failed = useSelector(state => state.subject.failed);
-  const subjects = useSelector(state => state.subject.subjects.subjects);
+  const subjects: [Assunto] = useSelector(
+    state => state.subject.subjects.subjects
+  );
+  const usuario = useSelector(state => state.auth.user);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
+    Alert.alert('oi');
     dispatch(getAllSubject());
   }, []);
 
@@ -50,9 +56,10 @@ export default ({ navigation }) => {
 
   const itemWidth = Dimensions.get('window').width - 90;
   const { width } = Dimensions.get('window');
-  const contentOffset = (width - 300) / 2;
 
   const renderItem = ({ item, index }) => {
+    // console.log('\n\n\n\n\n\n\n');
+    // console.log(item.questoesFechadas);
     return (
       <>
         <ListItem
@@ -70,7 +77,7 @@ export default ({ navigation }) => {
             <MetainfoTitle>{item.nome}</MetainfoTitle>
 
             <TextQtdQuestions>
-              {item.questoesFechadas.length} Questões
+              {item.quantidadeQuestoesFechadas} Questões
             </TextQtdQuestions>
             <Text style={{ marginLeft: 25, marginRight: 25 }} />
             <GoSubject
@@ -91,7 +98,7 @@ export default ({ navigation }) => {
           </MetainfoContainer>
         </ListItem>
         <Progress>
-          <ProgressPoint max={item.questoesFechadas.length} />
+          <ProgressPoint max={item.porcentagemQuestoesRespondidas} />
         </Progress>
       </>
     );
@@ -130,38 +137,3 @@ export default ({ navigation }) => {
     </>
   );
 };
-
-/**
- *
- <ListView
-          data={subjects}
-          data-testid="subject-testid"
-          testID="subject-testid"
-          id="subject-testid"
-          horizontal
-          /**  contentContainerStyle={{ paddingHorizontal: '10%' }}
-
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <ListItem
-              onPress={() => {
-                navigation.navigate('ClosedQuestions', {
-                  idSubject: item.id,
-                });
-              }}
-              key={item.id}
-            >
-              <IconSequence>
-                <IconSequenceNumber>{item.sequencia}</IconSequenceNumber>
-              </IconSequence>
-              <MetainfoContainer>
-                <MetainfoTitle>{item.nome}</MetainfoTitle>
-                <ContainerNumberQuestions>
-                  <IconQtd>{item.questoesFechadas.length}</IconQtd>
-                  <TextQtdQuestions>Questões</TextQtdQuestions>
-                </ContainerNumberQuestions>
-              </MetainfoContainer>
-            </ListItem>
-          )}
-        />
- */

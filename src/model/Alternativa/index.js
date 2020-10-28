@@ -10,4 +10,12 @@ export default class Alternativa {
   isVerdadeiro: boolean;
 
   texto: string;
+
+  toJSON() {
+    return {
+      id: this.id,
+      isVerdadeiro: this.isVerdadeiro,
+      texto: this.texto,
+    };
+  }
 }

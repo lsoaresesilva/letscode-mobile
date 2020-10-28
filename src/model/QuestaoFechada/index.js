@@ -1,4 +1,5 @@
 import Alternativa from '../Alternativa';
+import RespostasQuestaoFechada from '../RespostasQuestaoFechada';
 
 export default class QuestaoFechada {
   constructor(
@@ -7,7 +8,7 @@ export default class QuestaoFechada {
     enunciado: string,
     dificuldade: number,
     alternativas: Alternativa[],
-    respostaQuestao: string,
+    respostaQuestao: RespostasQuestaoFechada | null,
     sequencia: number
   ) {
     this.id = id;
@@ -29,7 +30,7 @@ export default class QuestaoFechada {
 
   alternativas: Alternativa[];
 
-  respostaQuestao: string;
+  respostaQuestao: RespostasQuestaoFechada | null;
 
   sequencia: number;
 
@@ -37,8 +38,18 @@ export default class QuestaoFechada {
     return this.id;
   }
 
-  isCerta(): boolean {
-    const a = this.id;
-    return 0;
+  toJSON() {
+    const alternativasJson = this.alternativas.map((abba: Alternativa) =>
+      abba.toJSON()
+    );
+
+    return {
+      alternativas: alternativasJson,
+      dificuldade: this.dificuldade,
+      enunciado: this.enunciado,
+      id: this.id,
+      nomeCurto: this.nomeCurto,
+      respostaQuestao: this.respostaQuestao,
+    };
   }
 }

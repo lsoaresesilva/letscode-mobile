@@ -5,7 +5,9 @@ import { PRIMARY } from '../../styles/colors';
 export const Container = styled.ScrollView`
   background: #341c94;
   background: #f2f2f2;
-  margin: 25px 25px 0px 25px;
+  margin: 0px 25px 0px 25px;
+  padding-top: 25px;
+  padding-bottom: 55px;
   flex: 1;
 `;
 

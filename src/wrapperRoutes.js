@@ -12,7 +12,7 @@ export default () => {
       setSigned(state.auth.signed);
     }
   });
-  console.log(asdasd);
+  // console.log(asdasd);
   useEffect(() => {
     setSigned(condition);
   }, [loading]);
