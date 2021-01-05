@@ -22,7 +22,7 @@
     "@types/react": "^16.9.23",
     "@types/react-native": "^0.61.20",
     "@types/react-test-renderer": "^16.9.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "base-64": "^0.1.0",
     "firebase": "^7.9.3",
     "immer": "^5.3.6",
